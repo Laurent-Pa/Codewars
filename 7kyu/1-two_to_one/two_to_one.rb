@@ -1,8 +1,9 @@
 def longest(a1, a2)
- p a1.chars.uniq.join
- p a2.chars.uniq.join
+ string = (a1+a2).chars.uniq.sort.join
 end
 
 a = "xyaabbbccccdefww"
 b = "xxxxyyyyabklmopq"
-longest(a, b) -> "abcdefklmopqwxy"
+expected = "abcdefklmopqwxy"
+puts longest(a, b)
+puts longest(a,b) == expected
