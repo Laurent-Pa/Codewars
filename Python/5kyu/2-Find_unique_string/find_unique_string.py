@@ -1,48 +1,26 @@
 def find_uniq(arr):
-    count = 0
-    first_ref_chr = {}
-    second_ref_chr = {}
-    first_ref_str = ""
-    second_ref_str = ""
-    for str in arr:
-        # print(str)
-        processed_chr = set(sorted(list(str.lower())))
-        if count == 0:
-            first_ref_chr = processed_chr
-            first_ref_str = str
-            count += 1
-        elif processed_chr != first_ref_chr:
-            print(processed_chr != first_ref_chr)
-            if count ==1:
-                second_ref_str = str
-                second_ref_chr = processed_chr
-                count += 1
-            else:
-                if processed_chr == second_ref_chr:
-                    return first_ref_str
-                else:
-                    return str
-        else:
-            count += 1
+    def processing_string(input):
+        """Letters in downcase, unique and sorted for easier visual comparison"""
+        return "".join(set(sorted(list(input.lower()))))
 
+
+    first_string = processing_string(arr[0])
+    second_string = processing_string(arr[1])
+    if first_string != second_string:
+        # l'intru est dans l'un des 2 premiers éléments
+        third_string = processing_string(arr[2])
+        if first_string == third_string:
+            return arr[1]
+        else:
+            return arr[0]
+    else:
+        # l'intru n'est pas dans les 2 premiers éléments, on itère  sur le reste
+        reference_string = first_string
+        for str in arr:
+            if processing_string(str) != reference_string:
+                return str
 
 
 input = [ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]
 output = 'BbBb'
 print(find_uniq(input) == output)
-
-# input = [ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]
-# output = 'foo'
-# print(find_uniq(input) == output)
-
-# itérer sur chaque élément de la liste avec valeur et index
-# 1 mettre toutes les lettres en minuscule
-# 2 retirer les doublons
-# 3 classer par ordre alphabétique
-# stocker le resultat dans une variable à la 1ère itération tel que [string_processed, count, [index]]
-# le comparer au résultat de l'opération 3 lors des autres itérations
-# si string_processed identiques -> count +1 et index.append
-    # si plusieurs éléments dans la liste et max count >=2 return l'index de celui avec le min count
-# si string_processed différent
-    # si max count >= 2 return original string de celui venant d'être testé
-    # si count < 2 ajoute un élement dans la liste [[string_processed, count, [index]]
